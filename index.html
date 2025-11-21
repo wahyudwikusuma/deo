@@ -46,6 +46,40 @@
         }
     </script>
 
+    <!-- Nama Tamu Sesuai URL-->
+     <script>
+    // Function to get URL parameters
+    function getUrlParameter(name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        var results = regex.exec(location.search);
+        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    }
+
+    // Function to update guest name
+    function updateGuestName() {
+        // Get name from URL parameter (example: ?to=Deo+Vatta atau ?nama=Deo%20Vatta)
+        const guestName = getUrlParameter('to') || getUrlParameter('nama') || getUrlParameter('name') || 'Tamu Spesial';
+        
+        // Format the name (replace + with space, capitalize)
+        const formattedName = guestName.replace(/\+/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+        
+        // Update the text in the cover
+        const guestElement = document.querySelector('.guest-name');
+        if (guestElement) {
+            guestElement.textContent = formattedName;
+        }
+        
+        // Also update page title for personalization
+        if (formattedName !== 'Tamu Spesial') {
+            document.title = `Undangan Devata & Gumiho - ${formattedName}`;
+        }
+    }
+
+    // Call when page loads
+    document.addEventListener('DOMContentLoaded', updateGuestName);
+</script>
+
     <style>
         /* --- Custom CSS & Animations --- */
         body {
@@ -97,7 +131,7 @@
         .hero-parallax {
             /* MENGUBAH SUMBER GAMBAR DARI URL KE FOLDER LOKAL 'img/' */
             /* Pastikan file 'hero-bg.jpg' ada di dalam folder 'img' */
-            background-image: linear-gradient(rgba(10, 25, 47, 0.6), rgba(10, 25, 47, 0.8)), url('img/HAE-280.jpg');
+            background-image: linear-gradient(rgba(10, 25, 47, 0.6), rgba(10, 25, 47, 0.8)), url('img/HAE-280.JPG');
             background-attachment: fixed;
             background-position: center;
             background-repeat: no-repeat;
@@ -151,7 +185,7 @@
     <!-- AUDIO BACKGROUND -->
     <!-- Note: Audio will play after user interaction (clicking "Buka Undangan") due to browser autoplay policies -->
     <audio id="bg-music" loop>
-        <source src="song/still-the-one.opus" type="audio/mpeg">
+        <source src="song/still-the-one.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
 
@@ -184,7 +218,7 @@
             <div class="mt-8 p-6 glass-card rounded-2xl max-w-sm mx-auto transform transition-all hover:scale-105">
                 <p class="mb-3 text-sm text-gray-400 font-fun">Kepada Yth. Bapak/Ibu/Saudara/i</p>
                 <div class="bg-white/10 px-6 py-3 rounded-full mb-6 inline-block border border-white/20 w-full">
-                    <span class="font-bold text-xl text-white">Tamu Spesial</span>
+                    <span class="font-bold text-xl text-white guest-name">Tamu Spesial</span>
                 </div>
                 
                 <button onclick="openInvitation()" class="group relative px-8 py-3 w-full bg-funRed text-white font-bold rounded-full overflow-hidden shadow-[0_0_20px_rgba(255,77,77,0.6)] transition-all transform hover:shadow-[0_0_30px_rgba(255,77,77,0.8)]">
@@ -245,7 +279,7 @@
                             <div class="absolute -inset-4 border-2 border-dashed border-funRed/50 rounded-full animate-spin-slow"></div>
                             <!-- Image: Mengambil dari folder img/HAE(158).jpg -->
                             <div class="w-full h-full rounded-full overflow-hidden border-4 border-navy-900 shadow-2xl relative z-10 transform transition duration-500 group-hover:scale-105">
-                                <img src="img/HAE-158.jpg" alt="Devatta" class="w-full h-full object-cover">
+                                <img src="img/HAE-158.JPG" alt="Devatta" class="w-full h-full object-cover">
                             </div>
                         </div>
                         <h3 class="font-script text-5xl text-funRed mb-3">Devata</h3>
@@ -267,7 +301,7 @@
                             <div class="absolute -inset-4 border-2 border-dashed border-funRed/50 rounded-full animate-spin-slow" style="animation-direction: reverse;"></div>
                             <!-- Image: Mengambil dari folder img/HAE(149).jpg -->
                             <div class="w-full h-full rounded-full overflow-hidden border-4 border-navy-900 shadow-2xl relative z-10 transform transition duration-500 group-hover:scale-105">
-                                <img src="img/HAE-149.jpg" alt="Sela" class="w-full h-full object-cover">
+                                <img src="img/HAE-149.JPG" alt="Sela" class="w-full h-full object-cover">
                             </div>
                         </div>
                         <h3 class="font-script text-5xl text-funRed mb-3">Gumiho</h3>
@@ -355,32 +389,32 @@
                     <!-- Photo 1 -->
                     <div class="group relative overflow-hidden rounded-2xl aspect-[3/4] cursor-pointer" data-aos="fade-up" data-aos-delay="100">
                         <div class="absolute inset-0 bg-navy-900/40 group-hover:bg-transparent transition z-10"></div>
-                        <img src="img/HAE-452.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Galeri 1">
+                        <img src="img/HAE-452.JPG" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Galeri 1">
                     </div>
                     <!-- Photo 2 -->
                     <div class="group relative overflow-hidden rounded-2xl aspect-[3/4] cursor-pointer md:-mt-8" data-aos="fade-up" data-aos-delay="200">
                         <div class="absolute inset-0 bg-navy-900/40 group-hover:bg-transparent transition z-10"></div>
-                        <img src="img/HAE-570.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Galeri 2">
+                        <img src="img/HAE-570.JPG" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Galeri 2">
                     </div>
                     <!-- Photo 3 -->
                     <div class="group relative overflow-hidden rounded-2xl aspect-[3/4] cursor-pointer" data-aos="fade-up" data-aos-delay="300">
                         <div class="absolute inset-0 bg-navy-900/40 group-hover:bg-transparent transition z-10"></div>
-                        <img src="img/HAE-710.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Galeri 3">
+                        <img src="img/HAE-232.JPG" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Galeri 3">
                     </div>
                     <!-- Photo 4 -->
                     <div class="group relative overflow-hidden rounded-2xl aspect-[3/4] cursor-pointer" data-aos="fade-up" data-aos-delay="400">
                         <div class="absolute inset-0 bg-navy-900/40 group-hover:bg-transparent transition z-10"></div>
-                        <img src="img/HAE-204.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Galeri 4">
+                        <img src="img/HAE-204.JPG" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Galeri 4">
                     </div>
                     <!-- Photo 5 -->
                     <div class="group relative overflow-hidden rounded-2xl aspect-[3/4] cursor-pointer md:-mt-8" data-aos="fade-up" data-aos-delay="500">
                         <div class="absolute inset-0 bg-navy-900/40 group-hover:bg-transparent transition z-10"></div>
-                        <img src="img/HAE-376.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Galeri 5">
+                        <img src="img/HAE-376.JPG" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Galeri 5">
                     </div>
                     <!-- Photo 6 -->
                     <div class="group relative overflow-hidden rounded-2xl aspect-[3/4] cursor-pointer" data-aos="fade-up" data-aos-delay="600">
                         <div class="absolute inset-0 bg-navy-900/40 group-hover:bg-transparent transition z-10"></div>
-                        <img src="img/HAE-452.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Galeri 6">
+                        <img src="img/HAE-452.JPG" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Galeri 6">
                     </div>
                 </div>
             </div>
